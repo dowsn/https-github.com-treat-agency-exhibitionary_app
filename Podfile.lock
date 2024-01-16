@@ -1,0 +1,43 @@
+PODS:
+  - AMPopTip (4.12.0)
+  - FLAnimatedImage (1.0.17)
+  - GoogleMaps (7.4.0):
+    - GoogleMaps/Maps (= 7.4.0)
+  - GoogleMaps/Base (7.4.0)
+  - GoogleMaps/Maps (7.4.0):
+    - GoogleMaps/Base
+  - NYTPhotoViewer (1.1.0):
+    - NYTPhotoViewer/AnimatedGifSupport (= 1.1.0)
+    - NYTPhotoViewer/Core (= 1.1.0)
+  - NYTPhotoViewer/AnimatedGifSupport (1.1.0):
+    - FLAnimatedImage (~> 1.0.8)
+    - NYTPhotoViewer/Core
+  - NYTPhotoViewer/Core (1.1.0)
+  - SDWebImage (3.8.3):
+    - SDWebImage/Core (= 3.8.3)
+  - SDWebImage/Core (3.8.3)
+
+DEPENDENCIES:
+  - AMPopTip
+  - GoogleMaps (~> 7.0)
+  - NYTPhotoViewer (~> 1.1.0)
+  - SDWebImage (~> 3.7)
+
+SPEC REPOS:
+  trunk:
+    - AMPopTip
+    - FLAnimatedImage
+    - GoogleMaps
+    - NYTPhotoViewer
+    - SDWebImage
+
+SPEC CHECKSUMS:
+  AMPopTip: cf89d8690aa6e59ddc86bf46c0ccabb3e7d148a1
+  FLAnimatedImage: bbf914596368867157cc71b38a8ec834b3eeb32b
+  GoogleMaps: 032f676450ba0779bd8ce16840690915f84e57ac
+  NYTPhotoViewer: e80e8767f3780d2df37c6f72cbab15d6c7232911
+  SDWebImage: a72e880a8fe0f7fc31efe15aaed443c074d2a80c
+
+PODFILE CHECKSUM: 0610132cdc55ab2ce3b7edf1c5b4af97b862455d
+
+COCOAPODS: 1.14.2
