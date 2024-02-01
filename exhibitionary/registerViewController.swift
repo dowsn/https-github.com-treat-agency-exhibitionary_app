@@ -30,10 +30,31 @@ class registerViewController: UIViewController, UINavigationBarDelegate, UITextF
     var thisSelectedRole = ""
     
     
+    // Called just before UITextField is edited
+       func textFieldDidBeginEditing(_ textField: UITextField) {
+           print("textFieldDidBeginEditing: \((textField.text) ?? "Empty")")
+       }
+       
+       // Called immediately after UITextField is edited
+//    private func textFieldDidEndEditing(_ textField: UITextField) {
+//           print("textFieldDidEndEditing: \((textField.text) ?? "Empty")")
+//       }
+//       
+//       // Called when the line feed button is pressed
+//    private func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//           print("textFieldShouldReturn \((textField.text) ?? "Empty")")
+//           
+//           // Process of closing the Keyboard when the line feed button is pressed.
+//           textField.resignFirstResponder()
+//           
+//           return true
+//       }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.black
-        self.navigationController?.navigationBar.tintColor = UIColor.black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
         //self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Apercu-Bold", size: 12)!]
         //self.navigationController?.navigationItem.leftBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Apercu-Regular", size: 12)!], forState: UIControlState.Normal)
         
@@ -70,6 +91,7 @@ class registerViewController: UIViewController, UINavigationBarDelegate, UITextF
         nameLabel.textAlignment = NSTextAlignment.left
         nameLabel.delegate = self
         
+        
         let nameLabelAttirbutedPalceHolderText = NSAttributedString(string: "Your First Name", attributes: [NSAttributedString.Key.font: UIFont(name: "Apercu-Regular", size: 14)!, NSAttributedString.Key.foregroundColor: UIColor.white])
         nameLabel.attributedPlaceholder = nameLabelAttirbutedPalceHolderText
         
@@ -87,10 +109,11 @@ class registerViewController: UIViewController, UINavigationBarDelegate, UITextF
         lastNameLabel.font = UIFont(name: "Apercu-Regular", size: 14)
         lastNameLabel.textColor = UIColor.white
         lastNameLabel.textAlignment = NSTextAlignment.left
+        lastNameLabel.text = ""
         lastNameLabel.delegate = self
         
-        let lastNameLabelAttirbutedPalceHolderText = NSAttributedString(string: "Your Last Name", attributes: [NSAttributedString.Key.font: UIFont(name: "Apercu-Regular", size: 14)!, NSAttributedString.Key.foregroundColor: UIColor.white])
-        lastNameLabel.attributedPlaceholder = lastNameLabelAttirbutedPalceHolderText
+//        let lastNameLabelAttirbutedPalceHolderText = NSAttributedString(string: "Your Last Name", attributes: [NSAttributedString.Key.font: UIFont(name: "Apercu-Regular", size: 14)!, NSAttributedString.Key.foregroundColor: UIColor.white])
+//        lastNameLabel.attributedPlaceholder = lastNameLabelAttirbutedPalceHolderText
         
         let lastNameBorder = CALayer()
         lastNameBorder.frame = CGRect(x: -50, y: lastNameLabel.frame.size.height + 10 - width, width:  thisScreenBounds.width, height: 1)
@@ -494,12 +517,12 @@ class registerViewController: UIViewController, UINavigationBarDelegate, UITextF
         
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         dismissKeyboard()
         return true
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
+     func textFieldDidEndEditing(_ textField: UITextField) {
         dismissKeyboard()
     }
     

@@ -65,8 +65,8 @@ class feedListTinyCell: UITableViewCell {
         
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init?(coder: NSCoder = NSCoder.empty()) {
+        super.init(coder: coder)
     }
     
     @objc func plusTapped() {

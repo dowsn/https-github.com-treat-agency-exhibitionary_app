@@ -14,8 +14,8 @@ class FotosOverViewCell: UICollectionViewCell {
     var thisFotoUrl = ""
     let thisScreenBound = UIScreen.main.bounds
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init?(coder: NSCoder = NSCoder.empty()) {
+        super.init(coder: coder)
     }
     
     override init(frame: CGRect) {

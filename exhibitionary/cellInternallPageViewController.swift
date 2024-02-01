@@ -8,7 +8,16 @@
 
 import Foundation
 
-class cellInternallPageViewController:UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+extension NSCoder {
+  class func empty() -> NSCoder {
+    let data = NSMutableData()
+      let archiver = NSKeyedArchiver(forWritingWith: data)
+    archiver.finishEncoding()
+      return NSKeyedUnarchiver(forReadingWith: data as Data)
+  }
+}
+
+class cellInternallPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
     let thisScreenBounds = UIScreen.main.bounds
     
@@ -31,6 +40,14 @@ class cellInternallPageViewController:UIPageViewController, UIPageViewController
         super.init(transitionStyle: UIPageViewController.TransitionStyle.scroll, navigationOrientation: navigationOrientation, options: [UIPageViewController.OptionsKey.interPageSpacing: 0])
     }
     
+//    init() {
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//    
+//    required init?(coder: NSCoder = NSCoder.empty()) {
+//        super.init(coder: coder)
+//    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -44,6 +61,8 @@ class cellInternallPageViewController:UIPageViewController, UIPageViewController
         super.viewDidLoad()
         self.dataSource = self
         self.delegate = self
+        
+        
         self.automaticallyAdjustsScrollViewInsets = false
         
     }
@@ -89,7 +108,6 @@ class cellInternallPageViewController:UIPageViewController, UIPageViewController
         
         var index = pageContentViewController.pageIndex
         index = index + 1
-        print(index)
         if(index >= self.images.count){
             return nil
         }

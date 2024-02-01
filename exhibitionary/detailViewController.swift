@@ -52,7 +52,7 @@ class detailViewController:UIViewController, UICollectionViewDataSource, UIColle
     
     var infoTextButton:UILabel = UILabel()
     
-    var thisGallerySwipe:imagesScrollOverviewController = imagesScrollOverviewController(coder: NSCoder())!
+    var thisGallerySwipe:imagesScrollOverviewController = imagesScrollOverviewController()!
     var thisIsFav:Int = 0
     
     var photos = [NYTPhoto]()

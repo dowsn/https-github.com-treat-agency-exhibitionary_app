@@ -106,18 +106,18 @@ class feedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        print("init")
 
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init?(coder: NSCoder = NSCoder.empty()) {
+        super.init(coder: coder)
         let appearance = UITabBarItem.appearance()
         let thisFont = UIFont(name: "Apercu-Regular", size: 12)
         appearance.setTitleTextAttributes([NSAttributedString.Key.font: thisFont!], for: UIControl.State())
         
     }
     
+
     func callSearchFilter(_ expression: String, cadFilter:Bool) {
         searchIsSet = false
         searchExpression = expression
@@ -148,7 +148,7 @@ class feedViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad() 
+        super.viewDidLoad()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -339,6 +339,10 @@ class feedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         
     }
+    
+    
+    
+    
     func acitvateSearch(targetDelegate:callSearchFilter) {
         if (searchIsSet) {
             thisTopSearchView.close()
@@ -383,7 +387,6 @@ class feedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func getData() {
         feedSelectionArray = [String]()
-        print("getting")
         //responseElements = [feedListElementData]()
         
         let thisUrl = globalData.globalUrl + "feed?id=" + String(returnAppDelegate().thisCityID)
@@ -588,6 +591,7 @@ class feedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         var thisUrl = globalData.dbUrl + "getPicksForPickList?list_id=" + targetID + "&city_id=" + String(returnAppDelegate().thisCityID)
         
+        
         thisUrl = thisUrl + "&search=" + searchExpression
         if (thisCADFilterOn) {
             thisUrl = thisUrl + "&cad=1"
@@ -629,6 +633,9 @@ class feedViewController: UIViewController, UITableViewDelegate, UITableViewData
                                             return
                                         }
                                     }
+                                    
+//                                    print(eventsJson)
+                                    
                                     for item in eventsJson {
                                         //print(item)
                                         
@@ -646,8 +653,12 @@ class feedViewController: UIViewController, UITableViewDelegate, UITableViewData
                                         }
                     
                                         let thisFeedElement:feedListElementData = feedListElementData(targetID: item["id"]! as! Int, labelText: item["title"]! as! String, backgroundImageURL: "", featured: false, images: theseImages, thisParseEndDate: self.nullToNil(item["end"]! as AnyObject?)!, thisParseStartDate: self.nullToNil(item["opening_start"]! as AnyObject?)!,venueAdress: self.nullToNil(item["venue_quarter"]! as AnyObject?)!, venueName: self.nullToNil(item["venue_name"]! as AnyObject?)!, sortingName: self.nullToNil(item["venue_name"]!)!, isFav: false, isOnPickList: thisIsOnPickList, thisCategoryID: 1, thisCategoryString: "")
+                                        
+                                        
+                                        
                                         self.responseElements.append(thisFeedElement)
                                     }
+
                                     
                                     
                                 }
@@ -779,27 +790,31 @@ class feedViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.dataSource   =   self
         //tableView.rowHeight    =   250
         
+//      tableView.register(feedListSwipeCellView.self, forCellReuseIdentifier: "feedListSwipeCellView")
         tableView.register(feedListSwipeCellView.self, forCellReuseIdentifier: "feedListSwipeCellView")
+
+        
+//        print(tableView)
         
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
-        //tableView.tableHeaderView = thisPickSelectorView.view
+//        tableView.tableHeaderView = thisPickSelectorView.view
         
             
         self.view.addSubview(tableView)
-        
-        if (thisActualCellIndex != 0) {
-            let thisIndexPath = IndexPath(row: thisActualCellIndex, section: 0)
-            tableView.scrollToRow(at: thisIndexPath, at: .middle, animated: false)
-        }
-        
-        UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions(), animations: {
-            self.tableView.alpha = 1
-        }, completion: {
-            (value: Bool) in
-            
-        })
-        
+//
+//        if (thisActualCellIndex != 0) {
+//            let thisIndexPath = IndexPath(row: thisActualCellIndex, section: 0)
+//            tableView.scrollToRow(at: thisIndexPath, at: .middle, animated: false)
+//        }
+//
+//        UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions(), animations: {
+//            self.tableView.alpha = 1
+//        }, completion: {
+//            (value: Bool) in
+//
+//        })
+//
         
         
     }
@@ -840,6 +855,7 @@ class feedViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func firstSetPickList(_ sender: pickListScrollView, targetID: String, listCount: Int) {
+        
         if (listCount == 1) {
             noData()
         } else {
@@ -1052,45 +1068,112 @@ class feedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         return thisReturnText
     }
+    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        
+//        let thisElement:feedListElementData = responseElements[(indexPath as NSIndexPath).row]
+//        
+//        //var cell:UITableViewCell
+//        var thisFeedCell:feedListSwipeCellView
+//        var _:pickListEditorCell
+//        
+//            thisFeedCell = (tableView.dequeueReusableCell(withIdentifier: "feedListSwipeCellView", for: indexPath) as? feedListSwipeCellView)!
+//            
+//            if (thisElement.thisParseEndDate != "-") {
+//                let thisEndDateText:String = restTime(thisElement.thisParseEndDate, targetStartDate: thisElement.thisParseStartDate)
+//                thisFeedCell.dateLeftText = thisEndDateText
+//                thisFeedCell.childDateLabelText(thisEndDateText)
+//            }
+//            var thisNameQuarter = thisElement.venueName
+//            if (thisElement.venueAdress != "") {
+//                thisNameQuarter = thisNameQuarter + ", " + thisElement.venueAdress
+//            }
+//                
+//            thisFeedCell.ownIndexPath = indexPath
+//            thisFeedCell.setIndexPath(indexPath)
+//            thisFeedCell.theseImages = thisElement.images
+//            thisFeedCell.thisSetImages(thisElement.images)
+//            thisFeedCell.thisID = thisElement.targetID
+//        
+//            
+//            thisFeedCell.actionLabelText = thisElement.labelText
+//            thisFeedCell.childActionLabelText(thisElement.labelText)
+//            thisFeedCell.addressText = thisNameQuarter
+//            thisFeedCell.setChildAddressText(thisNameQuarter)
+//            thisFeedCell.thisIDTarget(thisElement.targetID, targetDelegate: self)
+//        
+//            thisFeedCell.thisDetailDelegate = self
+//            thisFeedCell.selectionStyle = UITableViewCell.SelectionStyle.none
+//            thisFeedCell.isUserInteractionEnabled = true
+//            
+//            return thisFeedCell
+//        
+//        //return cell
+//    }
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let thisElement:feedListElementData = responseElements[(indexPath as NSIndexPath).row]
-        
-        //var cell:UITableViewCell
+
         var thisFeedCell:feedListSwipeCellView
-        var _:pickListEditorCell
+
+        thisFeedCell = (tableView.dequeueReusableCell(withIdentifier: "feedListSwipeCellView", for: indexPath) as? feedListSwipeCellView)!
+        // Set the data for this cell using the row index and the data property
+        let rowData = responseElements[indexPath.row]
         
-            thisFeedCell = (tableView.dequeueReusableCell(withIdentifier: "feedListSwipeCellView", for: indexPath) as? feedListSwipeCellView)!
-            
-            if (thisElement.thisParseEndDate != "-") {
-                let thisEndDateText:String = restTime(thisElement.thisParseEndDate, targetStartDate: thisElement.thisParseStartDate)
-                thisFeedCell.dateLeftText = thisEndDateText
-                thisFeedCell.childDateLabelText(thisEndDateText)
-            }
-            var thisNameQuarter = thisElement.venueName
-            if (thisElement.venueAdress != "") {
-                thisNameQuarter = thisNameQuarter + ", " + thisElement.venueAdress
-            }
+        var thisNameQuarter = thisElement.venueName
+        if (thisElement.venueAdress != "") {
+           thisNameQuarter = thisNameQuarter + ", " + thisElement.venueAdress
+        }
         
-            thisFeedCell.ownIndexPath = indexPath
-            thisFeedCell.setIndexPath(indexPath)
-            thisFeedCell.theseImages = thisElement.images
-            thisFeedCell.thisSetImages(thisElement.images)
-            thisFeedCell.thisID = thisElement.targetID
-            thisFeedCell.actionLabelText = thisElement.labelText
-            thisFeedCell.childActionLabelText(thisElement.labelText)
-            thisFeedCell.addressText = thisNameQuarter
-            thisFeedCell.setChildAddressText(thisNameQuarter)
-            thisFeedCell.thisIDTarget(thisElement.targetID, targetDelegate: self)
+        print(thisNameQuarter)
         
-            thisFeedCell.thisDetailDelegate = self
-        thisFeedCell.selectionStyle = UITableViewCell.SelectionStyle.none
-            thisFeedCell.isUserInteractionEnabled = true
-            
-            return thisFeedCell
+        thisFeedCell.setChildAddressText(thisNameQuarter)
         
-        //return cell
+        return thisFeedCell
     }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        
+//        let thisElement:feedListElementData = responseElements[(indexPath as NSIndexPath).row]
+//        
+//        //var cell:UITableViewCell
+//        var thisFeedCell:feedListSwipeCellView
+//        var _:pickListEditorCell
+//        
+//            thisFeedCell = (tableView.dequeueReusableCell(withIdentifier: "feedListSwipeCellView", for: indexPath) as? feedListSwipeCellView)!
+//            
+//            if (thisElement.thisParseEndDate != "-") {
+//                let thisEndDateText:String = restTime(thisElement.thisParseEndDate, targetStartDate: thisElement.thisParseStartDate)
+//                thisFeedCell.dateLeftText = thisEndDateText
+//                thisFeedCell.childDateLabelText(thisEndDateText)
+//            }
+//            var thisNameQuarter = thisElement.venueName
+//            if (thisElement.venueAdress != "") {
+//                thisNameQuarter = thisNameQuarter + ", " + thisElement.venueAdress
+//            }
+//                
+//            thisFeedCell.ownIndexPath = indexPath
+//            thisFeedCell.setIndexPath(indexPath)
+//            thisFeedCell.theseImages = thisElement.images
+//            thisFeedCell.thisSetImages(thisElement.images)
+//            thisFeedCell.thisID = thisElement.targetID
+//        
+//            
+//            thisFeedCell.actionLabelText = thisElement.labelText
+//            thisFeedCell.childActionLabelText(thisElement.labelText)
+//            thisFeedCell.addressText = thisNameQuarter
+//            thisFeedCell.setChildAddressText(thisNameQuarter)
+//            thisFeedCell.thisIDTarget(thisElement.targetID, targetDelegate: self)
+//        
+//            thisFeedCell.thisDetailDelegate = self
+//            thisFeedCell.selectionStyle = UITableViewCell.SelectionStyle.none
+//            thisFeedCell.isUserInteractionEnabled = true
+//            
+//            return thisFeedCell
+//        
+//        //return cell
+//    }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

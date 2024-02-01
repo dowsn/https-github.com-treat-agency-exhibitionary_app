@@ -19,10 +19,9 @@ class classicalImageScrollerView: UIViewController, UIGestureRecognizerDelegate 
         
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init?(coder: NSCoder = NSCoder.empty()) {
+        super.init(coder: coder)
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

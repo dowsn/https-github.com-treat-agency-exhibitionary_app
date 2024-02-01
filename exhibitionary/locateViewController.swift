@@ -67,8 +67,9 @@ class locateViewController: UIViewController, CLLocationManagerDelegate, GMSMapV
         
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init?(coder: NSCoder = NSCoder.empty()) {
+        super.init(coder: coder)
+
         
         let appearance = UITabBarItem.appearance()
         let thisFont = UIFont(name: "Apercu-Regular", size: 12)

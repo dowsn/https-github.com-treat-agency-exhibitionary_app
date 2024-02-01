@@ -112,8 +112,8 @@ class pickListEditorExhibitionListCell: UITableViewCell {
         profileImage.sd_setImage(with: URL(string: thisURL))
         
     }
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init?(coder: NSCoder = NSCoder.empty()) {
+        super.init(coder: coder)
     }
     
     func plusTapped() {

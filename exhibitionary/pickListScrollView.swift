@@ -33,8 +33,8 @@ class pickListScrollView:UIViewController {
         
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init?(coder: NSCoder = NSCoder.empty()) {
+        super.init(coder: coder)
     }
     
     override func viewDidLoad() {
@@ -52,16 +52,15 @@ class pickListScrollView:UIViewController {
         
         picksOverviewArray = [pickListData]()
     
-        let thisFirstPicklist = pickListData(targetID: "0", name: "Editors", teaser_text: "Search for picks in this city.", thumbnailUrl: "http://34.252.146.154/exhibitionary2/items/frontend/images/Edit.jpg", order: "0", city_id: "0")
+        let thisFirstPicklist = pickListData(targetID: "0", name: "Editors", teaser_text: "Search for picks in this city.", thumbnailUrl: globalData.globalUrl + "items/frontend/images/Edit.jpg", order: "0", city_id: "0")
         picksOverviewArray.append(thisFirstPicklist)
         
         print("\(thisAppDelegate.sessionUserID)")
-//        let user_id = thisAppDelegate.sessionUserID == "" ? thisAppDelegate.sessionUserID : "0"
+        let user_id = thisAppDelegate.sessionUserID != "" ? thisAppDelegate.sessionUserID : "0"
     
-        let thisUrl = globalData.globalUrl + "getPickListsForCityID?city_id=" + String(returnAppDelegate().thisCityID) + "&user_id="+"0"
+        let thisUrl = globalData.globalUrl + "getPickListsForCityID?city_id=" + String(returnAppDelegate().thisCityID) + "&user_id="+user_id
         
-        print(thisUrl)
-        
+                
         let request = NSMutableURLRequest(url: URL(string: thisUrl)!)
         request.httpMethod = "GET"
         
@@ -103,6 +102,8 @@ class pickListScrollView:UIViewController {
                                         let thisCityID = eventsJson[i]["city_id"] as! String
                                         let thispickListData = pickListData(targetID: thisId, name: thisName, teaser_text: thisText, thumbnailUrl: thisThumbnail, order: thisOrder, city_id: thisCityID)
                                         
+                                        
+                                        
                                         self.picksOverviewArray.append(thispickListData)
                                     }
                                     
@@ -137,6 +138,7 @@ class pickListScrollView:UIViewController {
         let thisBreak = 10
         
         for i in 0 ..< picksOverviewArray.count {
+            
             
             let element = picksOverviewArray[i]
             
@@ -186,7 +188,6 @@ class pickListScrollView:UIViewController {
     
     @objc func selectedPickList(sender:UITapGestureRecognizer) {
         let thisTargetIDInt = picksOverviewArray[sender.view?.tag as! Int].targetID
-        print(thisTargetIDInt)
         //let thisTargetID:String = String(describing: thisTargetIDInt!)
         delegateCall?.callPickList(self, targetID: thisTargetIDInt)
     }

@@ -107,10 +107,9 @@ class pickListEditorCell: UITableViewCell {
         //print(thisURL)
         profileImage.sd_setImage(with: URL(string: thisURL))
     }
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init?(coder: NSCoder = NSCoder.empty()) {
+        super.init(coder: coder)
     }
-    
     func plusTapped() {
         let thisAppDelegate = returnAppDelegate()
         let thisUserID = thisAppDelegate.sessionUserID

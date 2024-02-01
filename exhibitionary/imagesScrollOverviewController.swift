@@ -24,10 +24,9 @@ class imagesScrollOverviewController:UIPageViewController, UIPageViewControllerD
     }
     
     
-    required init?(coder: NSCoder) {
+    required init?(coder: NSCoder = NSCoder.empty()) {
         super.init(coder: coder)
     }
-    
   
     
     override func viewDidLoad() {

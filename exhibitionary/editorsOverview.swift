@@ -32,9 +32,9 @@ class editorsOverview: UIViewController, UITableViewDelegate, UITableViewDataSou
         
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
+    required init?(coder: NSCoder = NSCoder.empty()) {
+        super.init(coder: coder)
+    
         let appearance = UITabBarItem.appearance()
         let thisFont = UIFont(name: "Apercu-Regular", size: 12)
         appearance.setTitleTextAttributes([NSAttributedString.Key.font: thisFont!], for: UIControl.State())

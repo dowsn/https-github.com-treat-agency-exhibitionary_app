@@ -64,7 +64,7 @@ class userRearViewController: UIViewController, UITextFieldDelegate, UIAlertView
         self.navigationController?.navigationBar.isOpaque = false
         self.navigationController?.navigationBar.isTranslucent = false
         
-        self.navigationController?.navigationBar.tintColor = UIColor.black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
         
         let backButton = UIBarButtonItem(title: "Back", style: UIBarButtonItem.Style.plain, target: self, action: nil)
         backButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Apercu-Bold", size: 20)!], for: UIControl.State())
@@ -80,7 +80,8 @@ class userRearViewController: UIViewController, UITextFieldDelegate, UIAlertView
         
         self.view.backgroundColor = UIColor.black
         
-        self.automaticallyAdjustsScrollViewInsets = false
+        // new
+//        self.automaticallyAdjustsScrollViewInsets = false
         thisContentScrollView.frame = CGRect(x: 0, y: 0, width: thisScreenBounds.width, height: thisScreenBounds.height)
         thisContentScrollView.isScrollEnabled = true
         
@@ -242,17 +243,18 @@ class userRearViewController: UIViewController, UITextFieldDelegate, UIAlertView
             
         thisContentScrollView.addSubview(resetButton)
         */
-        let registerButton = UILabel(frame: CGRect(x: thisScreenBounds.width/2-100, y: thisScreenBounds.height/2, width: 800, height: 45))
+        let registerButton = UILabel(frame: CGRect(x: thisScreenBounds.width/2-100, y: 496, width: 200, height: 40))
+            
 //
          registerButton.backgroundColor = UIColor.clear
             //UIColor(red: 55/255, green: 57/255, blue: 61/255, alpha: 1)
          registerButton.font = UIFont(name: "Apercu-Bold", size: 16)
-         registerButton.textColor = UIColor.white
          registerButton.textAlignment = NSTextAlignment.center
+            registerButton.textColor = .white
+
          registerButton.numberOfLines = 2
         let thisText = NSMutableAttributedString(string: "Not registered yet?\nSign up now")
             thisText.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range:  NSMakeRange(19, 12))
-        
         registerButton.attributedText = thisText
         
          registerButton.isUserInteractionEnabled = true
